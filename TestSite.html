@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>X and Y Position Colors</title>
+    <style>
+        /* CSS styles go here */
+        body {
+            font-family: Helvetica, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+			text-align: center
+        }
+        
+        h2 {
+            color: #666;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            color: #444;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+			text-align: center
+        }
+        
+        input[type="range"] {
+            width: 20%;
+			margin-left: 40%;
+            margin-right: 60%;
+            margin-bottom: 20px
+			align: center
+        }
+        
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+	<h1>X and Y Position Colors made by GPT-3.5</h1>
+	<p>Use the slider to increase or decrease the red value for all the pixels. The rest are based off x and y values</p>
+    <input type="range" min="0" max="255" value="0" id="slider">
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+        // Get the elements
+        const slider = document.getElementById('slider');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set the canvas size
+        canvas.width = 	256;
+        canvas.height = 256;
+
+        // Generate colors based on x and y positions
+        for (let x = 0; x < canvas.width; x++) {
+            for (let y = 0; y < canvas.height; y++) {
+                // Set the pixel color based on x and y positions and slider value
+                const red = slider.value; // Red component based on x position
+                const blue = y % 256; // Blue component based on y position
+                const green = x % 256; // Green component based on the slider value
+
+                const alpha = 255; // Fully opaque
+
+                // Set the pixel color
+                ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+                ctx.fillRect(x, y, 1, 1);
+            }
+        }
+
+        // Update canvas when slider value changes
+        slider.addEventListener('input', updateCanvas);
+
+        function updateCanvas() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Generate colors based on x and y positions and new slider value
+            for (let x = 0; x < canvas.width; x++) {
+                for (let y = 0; y < canvas.height; y++) {
+                    const red = slider.value; // Red component based on x position
+                    const blue = y % 256; // Blue component based on y position
+                    const green = x % 256; // Green component based on the slider value
+
+                    const alpha = 255; // Fully opaque
+
+                    // Set the pixel color
+                    ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+                    ctx.fillRect(x, y, 1, 1);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
